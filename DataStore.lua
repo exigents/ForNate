@@ -159,6 +159,9 @@ game:BindToClose(function()
 	for _, p in pairs(Players:GetPlayers()) do
 		PlayerRemoving(p)
 	end
+	for UserId, Data in pairs(Cache) do
+		GlobalData:SetAsync(UserId, Data)
+	end
 end)
 
 Players.PlayerAdded:Connect(PlayerAdded)
