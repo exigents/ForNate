@@ -4,7 +4,7 @@ local DataStoreService = game:GetService("DataStoreService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 --> DataStore
-local GlobalData: GlobalDataStore = DataStoreService:GetDataStore("SimData1", "UserData")
+local GlobalData: GlobalDataStore = DataStoreService:GetDataStore("SimData2", "UserData")
 local Cache = {}
 
 --> Data Template
@@ -86,7 +86,7 @@ local function MakeLeaderstats(player: Player, DataFolder)
 	local leaderstats = Instance.new("Folder")
 	local Clicks = Instance.new("NumberValue")
 	local Gems = Instance.new("NumberValue")
-	local Rebirths = Instance.new("Folder")
+	local Rebirths = Instance.new("NumberValue")
 	
 	Clicks.Name = "Clicks"
 	Gems.Name = "Gems"
@@ -100,6 +100,18 @@ local function MakeLeaderstats(player: Player, DataFolder)
 	Clicks.Parent = leaderstats
 	Gems.Parent = leaderstats
 	Rebirths.Parent = leaderstats
+	
+	DataFolder:FindFirstChild("Clicks"):GetPropertyChangedSignal("Value"):Connect(function()
+		Clicks.Value = DataFolder:FindFirstChild("Clicks").Value
+	end)
+	
+	DataFolder:FindFirstChild("Gems"):GetPropertyChangedSignal("Value"):Connect(function()
+		Gems.Value = DataFolder:FindFirstChild("Gems").Value
+	end)
+	
+	DataFolder:FindFirstChild("Rebirths"):GetPropertyChangedSignal("Value"):Connect(function()
+		Rebirths.Value = DataFolder:FindFirstChild("Rebirths").Value
+	end)
 	
 	return leaderstats
 end
